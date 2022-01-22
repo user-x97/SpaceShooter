@@ -26,6 +26,25 @@ public class PlayerCtrl : MonoBehaviour
         transform.Translate(dir.normalized * speed * Time.deltaTime);
         transform.Rotate(Vector3.up * rotate * Time.deltaTime * r);
 
-        // Debug.Log("dir=" + dir.magnitude + "   n=" + dir.normalized);
+        PlayerAnimation();
+    }
+
+    void PlayerAnimation() {    // 애니메이션 블렌딩
+        if (v >= 0.1f)
+        {
+            anim.CrossFade("RunF", 0.25f);      // 전진
+        }
+        else if (v <= -0.1f) {
+            anim.CrossFade("RunB", 0.25f);      // 후진
+        }
+        else if (h >= 0.1f) {
+            anim.CrossFade("RunR", 0.25f);      // 우
+        }
+        else if (h <= -0.1f) {
+            anim.CrossFade("RunL", 0.25f);      // 좌
+        }
+        else {
+            anim.CrossFade("Idle", 0.1f);       // 정지
+        }
     }
 }
