@@ -4,9 +4,20 @@ using UnityEngine;
 
 public class RemoveBullet : MonoBehaviour
 {
+    public GameObject sparkEffect;
     void OnCollisionEnter(Collision call){
         if (call.gameObject.tag == "BULLET"){
+
+            // 오브젝트 제거
             Destroy(call.gameObject);
+
+            // 스파크 생성
+            ContactPoint cp = call.GetContact(0);
+            Vector3 pos = cp.point;
+            Vector3 contactNormal = -cp.normal;
+            Quaternion rot = Quaternion.LookRotation(contactNormal);
+            GameObject obj = Instantiate(sparkEffect, pos, rot);
+            Destroy(obj, 0.4f);
         }
     }
 }
